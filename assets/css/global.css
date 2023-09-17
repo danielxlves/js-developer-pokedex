@@ -3,6 +3,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     background-color: #f6f8fc;
 }
@@ -13,6 +14,7 @@ body {
     padding: 1rem;
     background-color: #fff;
 }
+
 
 @media screen and (min-width: 992px) {
     .content {

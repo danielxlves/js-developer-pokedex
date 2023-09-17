@@ -1,4 +1,3 @@
-
 const pokeApi = {}
 
 function convertPokeApiDetailToPokemon(pokeDetail) {
@@ -17,6 +16,14 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     return pokemon
 }
 
+
+function convertEffects(pokeDetail) {
+    const pokeEffect = new Effects()
+    
+    return effects
+}
+
+
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
@@ -32,4 +39,25 @@ pokeApi.getPokemons = (offset = 0, limit = 5) => {
         .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
+}
+
+pokeApi.getEffects =  async (id) => {
+    const url = `https://pokeapi.co/api/v2/ability/${id}/`
+
+    return fetch(url)
+    .then((response) => response.json())
+    .then((response) => response.effect_entries)
+    .then((effects)  => {
+
+        class Effects {
+            effect;
+            shortEffect;
+        }
+
+        const pokemonEffects = new Effects()
+        pokemonEffects.effect = effects[0].effect
+        pokemonEffects.shortEffect = effects[1].effect
+        return pokemonEffects
+    })
+
 }
